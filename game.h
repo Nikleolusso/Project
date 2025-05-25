@@ -10,6 +10,7 @@ Nik Albrecht, Mat. Nr. */
 const int CARDS_PER_PLAYER 12;
 const int NUM_PLAYERS 4;
 const int DECK_SIZE 64;
+Player players[NUM_PLAYERS];
 
 //Player struct
 typedef struct {
