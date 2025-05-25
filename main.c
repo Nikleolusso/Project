@@ -5,10 +5,6 @@
 #include "game.h"
 
 int main() {
-
-Player players[NUM_PLAYERS];
-const int CARDS_PER_PLAYER 12;
-const int NUM_PLAYERS 4;
     
 const char* deck[] = {
     // 11 Taco cards
