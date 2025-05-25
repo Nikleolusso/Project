@@ -1,7 +1,7 @@
 //For function declarations, structs, #define,
 /*This project is open source.
 Kryzelle Manabat, Mat. Nr.
-Nik Albrecht, Mat. Nr. 313910 */
+Nik Albrecht, Mat. Nr. */
 
 #ifndef GAME_H
 #define GAME_H
