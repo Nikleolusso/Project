@@ -6,6 +6,32 @@ Nik Albrecht, Mat. Nr. */
 #ifndef GAME_H
 #define GAME_H
 
+const char* deck[] = {
+    // 11 Taco cards
+    "Taco", "Taco", "Taco", "Taco", "Taco", "Taco", "Taco", "Taco", "Taco", "Taco", "Taco",
+
+    // 11 Cat cards
+    "Cat", "Cat", "Cat", "Cat", "Cat", "Cat", "Cat", "Cat", "Cat", "Cat", "Cat",
+
+    // 11 Goat cards
+    "Goat", "Goat", "Goat", "Goat", "Goat", "Goat", "Goat", "Goat", "Goat", "Goat", "Goat",
+
+    // 11 Cheese cards
+    "Cheese", "Cheese", "Cheese", "Cheese", "Cheese", "Cheese", "Cheese", "Cheese", "Cheese", "Cheese", "Cheese",
+
+    // 11 Pizza cards
+    "Pizza", "Pizza", "Pizza", "Pizza", "Pizza", "Pizza", "Pizza", "Pizza", "Pizza", "Pizza", "Pizza",
+
+    // 3 Gorilla cards
+    "Gorilla", "Gorilla", "Gorilla",
+
+    // 3 Groundhog cards
+    "Groundhog", "Groundhog", "Groundhog",
+
+    // 3 Narwhal cards
+    "Narwhal", "Narwhal", "Narwhal"
+};
+
 //Constants
 const int CARDS_PER_PLAYER 12;
 const int NUM_PLAYERS 4;
