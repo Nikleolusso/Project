@@ -6,43 +6,37 @@ Nik Albrecht, Mat. Nr. */
 #ifndef GAME_H
 #define GAME_H
 
-const char* deck[] = {
-    // 11 Taco cards
-    "Taco", "Taco", "Taco", "Taco", "Taco", "Taco", "Taco", "Taco", "Taco", "Taco", "Taco",
-
-    // 11 Cat cards
-    "Cat", "Cat", "Cat", "Cat", "Cat", "Cat", "Cat", "Cat", "Cat", "Cat", "Cat",
-
-    // 11 Goat cards
-    "Goat", "Goat", "Goat", "Goat", "Goat", "Goat", "Goat", "Goat", "Goat", "Goat", "Goat",
-
-    // 11 Cheese cards
-    "Cheese", "Cheese", "Cheese", "Cheese", "Cheese", "Cheese", "Cheese", "Cheese", "Cheese", "Cheese", "Cheese",
-
-    // 11 Pizza cards
-    "Pizza", "Pizza", "Pizza", "Pizza", "Pizza", "Pizza", "Pizza", "Pizza", "Pizza", "Pizza", "Pizza",
-
-    // 3 Gorilla cards
-    "Gorilla", "Gorilla", "Gorilla",
-
-    // 3 Groundhog cards
-    "Groundhog", "Groundhog", "Groundhog",
-
-    // 3 Narwhal cards
-    "Narwhal", "Narwhal", "Narwhal"
-};
-
 //Constants
-const int CARDS_PER_PLAYER 12;
-const int NUM_PLAYERS 4;
-const int DECK_SIZE 64;
-Player players[NUM_PLAYERS];
+const int CARDS_PER_PLAYER = 12;
+const int NUM_PLAYERS = 4;
+const int DECK_SIZE = 64;
+const char *sequence[] = {"Taco", "Cat", "Goat", "Cheese", "Pizza"};
+const char *cards[] = {"Taco", "Cat", "Goat", "Cheese", "Pizza", "HTWG"};
+
+//Deck
+#define REPEAT11(x) x, x, x, x, x, x, x, x, x, x, x //standard cards exist 11 times
+#define REPEAT3(x) x, x, x //special cards three times
+const char* deck[] = {
+    REPEAT11("Taco"),
+    REPEAT11("Goat"),
+    REPEAT11("Cheese"),
+    REPEAT11("Pizza"),
+    REPEAT3("Gorilla"),
+    REPEAT3("Groundhog"),
+    REPEAT3("Narwhal")
+};
 
 //Player struct
 typedef struct {
     const char* hand[CARDS_PER_PLAYER];
     int cardCount;
+    int id;
+    int cards;
+    char name[MAX_NAME_LEN];
+    int slap_time;
 } Player;
+
+Player players[NUM_PLAYERS];
 
 //Function declarations
 void swap(const char** a, const char** b);
