@@ -2,16 +2,10 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#include "game.h"
 #include <conio.h> // Windows only (_kbhit and _getch)
 #include <string.h>
-
-int main() {
-
-//Game preparation (shuffleing and dealing cards)
-srand((unsigned int)time(NULL)); //create seed for shuffle function
-shuffleDeck(deck, DECK_SIZE); //call shuffle function
-dealCards(players, deck, NUM_PLAYERS, CARDS_PER_PLAYER);
+#include "game.h"
+#include "game.c"
 
 int main() {
     srand(time(NULL));
@@ -19,6 +13,11 @@ int main() {
     int current_word_index = 0;
     int current_turn = 0;
     char player_name[MAX_NAME_LEN];
+    
+    //Game preparation (shuffleing and dealing cards)
+    srand((unsigned int)time(NULL)); //create seed for shuffle function
+    shuffleDeck(deck, DECK_SIZE); //call shuffle function
+    dealCards(players, deck, NUM_PLAYERS, HAND_SIZE);
 
     printf("Welcome to Taco, Cat, Goat, Cheese, Pizza - HTWG Edition (with Special Cards)\n");
     printf("Enter your name: ");
@@ -28,7 +27,7 @@ int main() {
     // Initialize players
     for (int i = 0; i < NUM_PLAYERS; i++) {
         players[i].id = i;
-        players[i].cards = HAND_SIZE;
+        players[i].cardCount = HAND_SIZE;
         players[i].slap_time = -1;
 
         if (i == 0)
@@ -48,16 +47,16 @@ int main() {
         printf("Saying: %s\n", sequence[current_word_index]);
 
         int drawn_card = get_random_card();
-        printf("Card played: %s\n", cards[drawn_card]);
+        printf("Card played: %s\n", hand[drawn_card]);
 
-        int match = strcmp(sequence[current_word_index], cards[drawn_card]) == 0;
+        int match = strcmp(sequence[current_word_index], hand[drawn_card]) == 0;
 
         // Handle special card HTWG
         if (drawn_card == SPECIAL_CARD_INDEX) {
             printf("\n🎓 Special HTWG card drawn!\n");
             if (current_turn == 0) {
                 if (!perform_htwg_combo()) {
-                    players[0].cards++;
+                    players[0].cardCount++;
                 }
             } else {
                 npc_perform_htwg_combo(&players[current_turn]);
@@ -105,15 +104,15 @@ int main() {
             }
 
             printf("\n👎 %s was the last to slap and gets a penalty card!\n", players[slowest_index].name);
-            players[slowest_index].cards++;
+            players[slowest_index].cardCount++;
         }
 
-        if (players[current_turn].cards > 0)
-            players[current_turn].cards--;
+        if (players[current_turn].cardCount > 0)
+            players[current_turn].cardCount--;
 
         // Check for win
         for (int i = 0; i < NUM_PLAYERS; i++) {
-            if (players[i].cards <= 0) {
+            if (players[i].cardCount <= 0) {
                 printf("\n🎉 %s has won the game! 🎉\n", players[i].name);
                 return 0;
             }
