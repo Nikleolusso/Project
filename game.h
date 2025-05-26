@@ -7,11 +7,16 @@ Nik Albrecht, Mat. Nr. */
 #define GAME_H
 
 //Constants
-const int CARDS_PER_PLAYER = 12;
+#define SEQUENCE_LENGTH 5
+#define MAX_NAME_LEN 10
+const int HAND_SIZE = 12;
 const int NUM_PLAYERS = 4;
 const int DECK_SIZE = 64;
 const char *sequence[] = {"Taco", "Cat", "Goat", "Cheese", "Pizza"};
 const char *cards[] = {"Taco", "Cat", "Goat", "Cheese", "Pizza", "HTWG"};
+extern int current_deck_position;
+
+
 
 //Deck
 #define REPEAT11(x) x, x, x, x, x, x, x, x, x, x, x //standard cards exist 11 times
@@ -26,17 +31,14 @@ const char* deck[] = {
     REPEAT3("Narwhal")
 };
 
-//Player struct
+//Player data
 typedef struct {
-    const char* hand[CARDS_PER_PLAYER];
     int cardCount;
     int id;
-    int cards;
-    char name[MAX_NAME_LEN];
     int slap_time;
+    char name[MAX_NAME_LEN];
+    char hand[HAND_SIZE];
 } Player;
-
-Player players[NUM_PLAYERS];
 
 //Function declarations
 void swap(const char** a, const char** b);
