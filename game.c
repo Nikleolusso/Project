@@ -30,3 +30,57 @@ void dealCards(Player players[], const char* deck[], int numPlayers, int cardsPe
         }
     }
 } 
+void press_to_continue() {
+    printf("\nPress Enter to continue...\n");
+    while (getchar() != '\n');
+}
+
+int get_random_card() {
+    return rand() % 6; // Includes special card HTWG
+}
+
+void display_player_status(Player players[]) {
+    printf("\n--- Card Counts ---\n");
+    for (int i = 0; i < NUM_PLAYERS; i++) {
+        printf("%s: %d cards\n", players[i].name, players[i].cards);
+    }
+    printf("-------------------\n");
+}
+
+int get_npc_slap_time() {
+    return 300 + rand() % 1700;
+}
+
+void wait_ms(int milliseconds) {
+    clock_t start = clock();
+    while ((clock() - start) * 1000 / CLOCKS_PER_SEC < milliseconds);
+}
+
+int perform_htwg_combo() {
+    char expected[] = {'H', 'T', 'W', 'G'};
+    printf("Special card HTWG! Enter the sequence: H T W G (uppercase only)\n");
+
+    for (int i = 0; i < 4; i++) {
+        printf("Press '%c': ", expected[i]);
+        char ch = _getch();
+        printf("%c\n", ch);
+        if (ch != expected[i]) {
+            printf("Wrong key! You failed the combo.\n");
+            return 0; // failed
+        }
+    }
+
+    printf("✅ You successfully completed the combo!\n");
+    return 1; // success
+}
+
+int npc_perform_htwg_combo(Player *npc) {
+    int success = rand() % 2; // 50% chance
+    if (success) {
+        printf("%s completed the HTWG combo successfully!\n", npc->name);
+    } else {
+        printf("%s failed the HTWG combo!\n", npc->name);
+        npc->cards++;
+    }
+    return success;
+}
