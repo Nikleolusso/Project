@@ -23,13 +23,14 @@ void shuffleDeck(const char* deck[], int DECK_SIZE) {
 //Deal cards
 void dealCards(Player players[], const char* deck[], int numPlayers, int cardsPerPlayer) {
     int index = 0;
-    for(int i, i < cardsPerPlayer, i++) {
-        for(int j, j < numPlayers, j++) {
+    for(int i; i < cardsPerPlayer; i++) {
+        for(int j; j < numPlayers; j++) {
         players[j].hand[i] = deck[index++];
-        players.cardCount++;
+        players[j].cardCount++;
         }
     }
-} 
+}
+
 void press_to_continue() {
     printf("\nPress Enter to continue...\n");
     while (getchar() != '\n');
@@ -42,8 +43,8 @@ int get_random_card() {
 void display_player_status(Player players[]) {
     printf("\n--- Card Counts ---\n");
     for (int i = 0; i < NUM_PLAYERS; i++) {
-        printf("%s: %d cards\n", players[i].name, players[i].cards);
-    }
+        printf("%s: %d cards\n", players[i].name, players[i].cardCount);
+        }
     printf("-------------------\n");
 }
 
@@ -80,7 +81,7 @@ int npc_perform_htwg_combo(Player *npc) {
         printf("%s completed the HTWG combo successfully!\n", npc->name);
     } else {
         printf("%s failed the HTWG combo!\n", npc->name);
-        npc->cards++;
+        npc->cardCount++;
     }
     return success;
 }
