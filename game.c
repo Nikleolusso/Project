@@ -1,8 +1,9 @@
 //For Functions
+#include "game.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "game.h"
+
 
 //Swap two cards (for shuffle function)
 void swap(const char** a, const char** b) {
@@ -12,7 +13,7 @@ void swap(const char** a, const char** b) {
 }
 
 // Fisher-Yates shuffle
-void shuffleDeck(const char* deck[], int DECK_SIZE) {
+void shuffleDeck(const char* deck[], int deck_size) {
     for (int i = DECK_SIZE - 1; i > 0; i--) {
         int j = rand() % (i + 1);
         swap(&deck[i], &deck[j]);
@@ -22,13 +23,13 @@ void shuffleDeck(const char* deck[], int DECK_SIZE) {
 
 //Deal cards
 void dealCards(Player players[], const char* deck[], int numPlayers, int cardsPerPlayer) {
-    int index = 0;
-    for(int i; i < cardsPerPlayer; i++) {
-        for(int j; j < numPlayers; j++) {
-        players[j].hand[i] = deck[index++];
-        players[j].cardCount++;
+    for(int i = 0; i < numPlayers; i++) {
+        for(int j = 0; j < cardsPerPlayer; j++) {
+        players[i].hand[j] = deck[i * cardsPerPlayer + j];
         }
+        players[i].cardCount = cardsPerPlayer;
     }
+    current_deck_position = numPlayers * cardsPerPlayer;
 }
 
 void press_to_continue() {
@@ -36,8 +37,13 @@ void press_to_continue() {
     while (getchar() != '\n');
 }
 
-int get_random_card() {
-    return rand() % 6; // Includes special card HTWG
+const char* draw_from_deck() {
+    if (current_deck_position >= DECK_SIZE) {
+        printf("Reshuffling deck!\n");
+        shuffleDeck(deck, DECK_SIZE);
+        current_deck_position = 0;
+    }
+    return deck[current_deck_position++];
 }
 
 void display_player_status(Player players[]) {
