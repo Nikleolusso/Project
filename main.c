@@ -1,14 +1,13 @@
 //For Player interactions
+#include "game.h"
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <conio.h> // Windows only (_kbhit and _getch)
 #include <string.h>
-#include "game.h"
-#include "game.c"
+
 
 int main() {
-    srand(time(NULL));
     Player players[NUM_PLAYERS];
     int current_word_index = 0;
     int current_turn = 0;
@@ -17,6 +16,7 @@ int main() {
     //Game preparation (shuffleing and dealing cards)
     srand((unsigned int)time(NULL)); //create seed for shuffle function
     shuffleDeck(deck, DECK_SIZE); //call shuffle function
+    current_deck_position = 0;
     dealCards(players, deck, NUM_PLAYERS, HAND_SIZE);
 
     printf("Welcome to Taco, Cat, Goat, Cheese, Pizza - HTWG Edition (with Special Cards)\n");
@@ -46,13 +46,13 @@ int main() {
         printf("\nTurn: %s\n", players[current_turn].name);
         printf("Saying: %s\n", sequence[current_word_index]);
 
-        int drawn_card = get_random_card();
-        printf("Card played: %s\n", hand[drawn_card]);
+        const char* current_card = draw_from_deck();
+        printf("Card played: %s\n", current_card);
 
-        int match = strcmp(sequence[current_word_index], hand[drawn_card]) == 0;
+        int match = strcmp(sequence[current_word_index], current_card) == 0;
 
         // Handle special card HTWG
-        if (drawn_card == SPECIAL_CARD_INDEX) {
+        if (strcmp(current_card, "HTWG") == 0) {
             printf("\n🎓 Special HTWG card drawn!\n");
             if (current_turn == 0) {
                 if (!perform_htwg_combo()) {
